@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to Lelong Tour</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid px-4"
+    <div class="row">
+        <div class="col">
+          <h1>Explore Malaysia</h1>
+          <h3>Popular experiences</h3>
+          <p>Experience local lifestyle led by locals</p>
+        </div>
+   <form action="http://formspree.io/tradehouse2u@gmail.com" method='POST'   
+        <div class='row'>
+
+         <div class='col'>
+        <Input type="text" class='form-control'name='name'placeholder='your name please' 
+        </div>
+
+        <div class='col'>
+           <input type="email" class='form-control'name="email" placeholder="your email"
+        </div>
+
+        <div class='col'>
+            <input type="date" class='form-control'name="arrival date" placeholder="check in date"
+         </div>
+
+         <div class='col'>
+            <input type="number" class='form-control'name="number of days" placeholder="number of days"
+         </div>
+
+         <div class='col'>
+            <button type="submit" class='btn btn-primary'submit</button>
+
+         </div>
+        </form>
+
+<div class='row' id='tour'>
+    <div class="col-sm-3 c ol-md item">
+        <img src='images/cameron.jpg' alt=“” />
+        <p class='location'>Sightseeing &bull; Pahang</p>
+        <p class='title'>Cameron Highland Tea Farm Trip</p>
+        <p class='price'>RM 120 per person</p>
+      </div>
+    
+    <div class="col-sm-3 col-md item">
+        <img src='images/kl.jpg' />
+        <p class='location'>Group Activity &bull; Kuala Lumpur</p>
+        <p class='title'>Kuala Lumpur Culture Walk</p>
+        <p class='price'>RM70 per person</p>
+      </div>
+      <div class="col-sm-3 col-md item">
+        <img src='images/putrajaya.jpg' />
+        <p class='location'>Outdoor &bull; PutraJaya</p>
+        <p class='title'>Kayak at Putrajaya Lake</p>
+        <p class='price'>RM140 per person</p>
+      </div>
+
+      <div class="col-sm-3 col-md item">
+        <img src='images/melaka.jpg' />
+        <p class='location'>Guided Walk &bull; PutraJaya</p>
+        <p class='title'>Melaka Heritage Food Trail</p>
+        <p class='price'>RM60 per person</p>
+
+      </div>
+
+      <div class="d-sm-none d-md-block col-md item">
+        <img src='images/sarawak.jpg' />
+        <p class='location'>Culture Tour&bull; PutraJaya</p>
+        <p class='title'>Sarawak Culture Village</p>
+        <p class='price'>RM60 per person</p>
+      </div>
+    </div>
+
+    <script>
+      $('.item').click(function() {
+        $('.item').removeClass('selected'); // clear previously selected item
+        $(this).addClass('selected');
+
+        var selected_item = $(this).find('.title').text();
+
+        // We want to assign the value to our hidden value input in our form
+        // so that it can be sent to us together later.
+        $("input[name='selected_item']").val(selected_item)
+      })
+    </script>
+
+    <hr />
+    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyA1IfFK76NoX2Z1JXnJNRtXvk9PBqpJqY0",
+        authDomain: "airbnb-9df49.firebaseapp.com",
+        databaseURL: "https://airbnb-9df49.firebaseio.com",
+        projectId: "airbnb-9df49",
+        storageBucket: "airbnb-9df49.appspot.com",
+        messagingSenderId: "670143226064"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+firebase.initializeApp(config);
+var db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+
+function submitForm() {
+  var name = $("input[name='name']").val();
+  var email = $("input[name='email']").val();
+  var arrival_date = $("input[name='arrival_date']").val();
+  var no_of_days = $("input[name='no_of_days']").val();
+  var selected_item = $("input[name='selected_item']").val()
+
+  db.collection('bookings').add({ name, email, arrival_date, no_ofh_days, selected_item })
+    .then(function (docRef) {
+      alert("Booking submitted successfully");
+    })
+    .catch(function (error) {
+      alert("Error submitting booking");
+      console.error("Error: ", error);
+    });
+}
+
+    </div>
+</body>
+</html>
